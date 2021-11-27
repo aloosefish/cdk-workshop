@@ -1,8 +1,8 @@
-import * as sns from '@aws-cdk/aws-sns';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as subs from '@aws-cdk/aws-sns-subscriptions';
-import * as sqs from '@aws-cdk/aws-sqs';
 import * as cdk from '@aws-cdk/core';
+import * as lambda from '@aws-cdk/aws-lambda';
+import * as apigw from '@aws-cdk/aws-apigateway';
+import { HitCounter } from './hitcounter';
+import { TableViewer } from 'cdk-dynamo-table-viewer';
 
 export class CdkWorkshopStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -12,6 +12,20 @@ export class CdkWorkshopStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_14_X,
       code: lambda.Code.fromAsset('lambda'),
       handler: 'hello.handler'
+    });
+
+    const hellowWithCounter = new HitCounter(this, 'HelloHitCounter', {
+      downstream: hello
+    })
+
+    new apigw.LambdaRestApi(this, 'Endpoint', {
+      handler: hellowWithCounter.handler
+    });
+
+    new TableViewer(this, 'ViewHitCounter', {
+      title: 'Hello Hits',
+      table: hellowWithCounter.table,
+      sortBy: "-hits"
     });
   }
 }
