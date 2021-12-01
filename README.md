@@ -7,7 +7,7 @@ There is also a basic pipeline.
 
 This is my very first time working with the AWS CDK.
 
-Most of this should probably work (build and deploy) without updates. Two things that need to be updated are following variables in `test/hitcounter.test.ts` . 
+Most of this should probably work (build and deploy) without updates. Two things that need to be updated are following variables in `test/hitcounter.test.ts` : 
 
 ```
 DOWNSTREAM_FUNCTION_NAME
@@ -34,3 +34,4 @@ See [this useful workshop](https://cdkworkshop.com/20-typescript.html) on workin
  * `cdk deploy`      deploy this stack to your default AWS account/region
  * `cdk diff`        compare deployed stack with current state
  * `cdk synth`       emits the synthesized CloudFormation template
+ * `cdk destroy`    terminates all resources in the stack
