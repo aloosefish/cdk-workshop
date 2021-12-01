@@ -1,15 +1,32 @@
-# Welcome to your CDK TypeScript project!
+# Intro to AWS CDK
 
-You should explore the contents of this project. It demonstrates a CDK app with an instance of a stack (`CdkWorkshopStack`)
-which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.
+This is an introductory AWS CDK project based on the below tutorial. It features a custom 'HitCounter' Construct (invoked by a Lambda Function) that counts the number of visitors to different endpoints. This tally is saved in a DynamoDB instance that is displayed using the [TableViewer](https://www.npmjs.com/package/cdk-dynamo-table-viewer) Construct.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+There are basic Jest tests.
+There is also a basic pipeline.
 
-## Tutorial  
+This is my very first time working with the AWS CDK.
+
+Most of this should probably work (build and deploy) without updates. Two things that need to be updated are following variables in `test/hitcounter.test.ts` . 
+
+```
+DOWNSTREAM_FUNCTION_NAME
+HITS_TABLE_NAME
+ ```   
+
+They will need to be updated to whatever their generated names are in your instance.
+
+To run this code you will need Admin-Level programmatic access to an AWS account.
+
+Everything but the pipeline portion was within the Free Tier to deploy and run for about an hour.
+
+Remember to run `cdk destroy` after you are finished.
+
+## Full Tutorial  
 See [this useful workshop](https://cdkworkshop.com/20-typescript.html) on working with the AWS CDK for Typescript projects.
 
 
-## Useful commands
+## Commands
 
  * `npm run build`   compile typescript to js
  * `npm run watch`   watch for changes and compile
